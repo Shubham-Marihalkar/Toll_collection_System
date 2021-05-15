@@ -8,12 +8,13 @@
     {
         foreach($vehical_numbers as $key => $vnumber)
         {
-            echo $vnumber;
+            // echo $vnumber;
             $sql = "SELECT * FROM vehical_registry where vnumber='$vnumber'";
             $result = mysqli_query($link,$sql);
             $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-            if(count($row)>0)
+            if($row)
             {
+                $rowid=$row['userid'];
                 $vname=$row['vname'];
                 $vtype=$row['vtype'];
                 $vnumber=$row['vnumber'];
@@ -23,7 +24,7 @@
                 $query = " INSERT INTO vehical_entry(userid, vname, vtype, vnumber,starting_point,destination,status) VALUES ( $rowid,  '$vname', '$vtype', '$vnumber','$starting_point','$destination','$status') ";
                 mysqli_query($link,$query);
             }
-        }
+        }   
         $reference->remove();
     }
 ?>
