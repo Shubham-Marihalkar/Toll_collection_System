@@ -91,7 +91,7 @@
 
       <div id="content">
 
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+       <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
@@ -145,8 +145,6 @@
                         <?php
                               $sql="SELECT vname,vtype,vnumber FROM vehical_registry WHERE $rowid=userid";
                               $result = mysqli_query($link,$sql);
-                            
-                              
                         ?>
                           <p style="font-size:18px">Vehicle Details</p>
                       </div>
@@ -182,8 +180,6 @@
                       $sql="SELECT starting_point,destination,time FROM vehical_entry WHERE $rowid=userid and time = (SELECT MAX(time) FROM vehical_entry WHERE userid=$rowid)
                           ORDER BY slno, time DESC;";
                       $result = mysqli_query($link,$sql);
-               
-
                       while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){                     
                        echo "</br>";
                        echo"From : ".($row['starting_point']);
@@ -192,10 +188,7 @@
                        echo "</br>";
                        echo"Date and Time: ".($row['time']);
                      }
-                      
-                
                 ?>
-                 
                 </div>
               </div>
             </div>
@@ -312,20 +305,11 @@
   </div>
 </div>
 
-
           </div>
         </div>
       </div>
 
-            
-       
-            
           </div>
-
-         
-
-
-
 
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
@@ -365,7 +349,6 @@ $(document).ready(function () {
         starting_point:starting_point,
         destination:destination,
         otp:otp,
-
       },
       success:function(data, status){
         readRecords();

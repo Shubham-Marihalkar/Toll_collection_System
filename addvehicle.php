@@ -134,10 +134,43 @@
 
                 <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
+			<div>
             <h1 class="h3 mb-0 text-gray-800">Vehicle Details</h1>
             <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#myModal">
             Click To Add Vehicle
             </button>
+			<br />
+			</div>
+			</div>
+			<div>
+			<div class="table-responsive">
+                <table class="table table-bordered" id="shopping-cart-results" width="100%" cellspacing="0">
+                  <thead>
+                    <tr><p style="font-size:18px">Vehicle Details</p></tr>
+                    <tr>
+                      <th>Vehicle Name</th>
+                      <th>Vehicle Type</th>
+                      <th>Vehicle Number</th>
+                      
+                    </tr>
+                  </thead>
+
+                  <?php
+                          $sql="SELECT vname,vtype,vnumber FROM vehical_registry WHERE $rowid=userid";
+                          $result = mysqli_query($link,$sql);                
+                        ?>
+                  
+                  <tbody>
+                  <?php  while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){ ?>
+                  <tr>
+                    <td><?php echo $row["vname"]; ?></td>
+                    <td><?php echo $row["vtype"]; ?></td>
+                    <td><?php echo $row["vnumber"]; ?></td>
+                </tr>
+              <?php }?>
+      </tbody>
+      </table></div>
+          </div>
           </div>
 
 <div class="container-fluid">
@@ -173,18 +206,11 @@
         <button type="button" class="btn btn-success" data-dismiss="modal" onclick="addRecord()">Save</button>
          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
-
-   
     </div>
+	</div>
   </div>
 </div>
 </div>
-
-
-
-
-  
-
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -238,7 +264,7 @@ function readRecords(){
 
 </script>
 </div>
-
+<div>
   <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto"id="google_translate_element">
@@ -253,7 +279,7 @@ function googleTranslateElementInit() {
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
           </div></div>
       </footer>
-
+	</div>
     </div>
 
   </div>
