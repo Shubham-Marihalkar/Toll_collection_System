@@ -10,3 +10,4 @@ $firebase = (new Factory)
    ->withDatabaseUri('https://li-fi-43126-default-rtdb.firebaseio.com/')
    ->create();
 $database = $firebase->getDatabase();
+?>
