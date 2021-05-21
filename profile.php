@@ -53,6 +53,14 @@
           <span>Add Vehicle</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="entries.php" data-target="#collapseOrders" aria-expanded="true" aria-controls="collapseOrders">
+          <i><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+</svg></i>
+          <span>View Entries</span>
+        </a>
+      </li>
       
       <hr class="sidebar-divider">
 
@@ -192,6 +200,7 @@
               <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
+            
             <div class="form-group">
                     <label>First Name </label>
                    <input value="<?php echo $row['firstname'];?>" type="text" name="firstname" id="firstname" class="form-control">
@@ -211,7 +220,7 @@
             <div class="form-group">
                     <label>Security Question </label>
                    <select name="securityqst" id="securityqst" class="form-control">
-                         <option>Security Question</option>
+                         <option><?php echo $row['securityqst'];?></option>
                          <option value="What was the name of your first/current/favorite pet?">What was the name of your first/current/favorite pet?</option>
                          <option value="Where is your favorite place to vacation?">Where is your favorite place to vacation?</option>
                          <option value="Which is your birth place?">Which is your birth place?</option>
@@ -238,11 +247,10 @@
       </div>
       
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal" onclick="UpdateRecord()">Update</button>
+        <button type="submit" class="btn btn-success" data-dismiss="modal" onclick="UpdateRecord()">Update</button>
          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
 
-   
 
     </div>
   </div>
@@ -252,13 +260,7 @@
           </div>
         </div>
       </div>
-
-  
-         
-
-
-
-
+      
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto"id="google_translate_element">
@@ -272,13 +274,8 @@ function googleTranslateElementInit() {
 
 
 <script>
-  
-$(document).ready(function () {
-    readRecords(); 
-  });
-
   function UpdateRecord(){
-
+    
       var firstname = $("#firstname").val();
       var lastname = $("#lastname").val();
       var username = $("#username").val();
@@ -286,12 +283,10 @@ $(document).ready(function () {
       var securityqst = $("#securityqst").val();
       var securityans= $("#securityans").val();
       var password= $("#password").val();
-     
 
     $.ajax({
-
+      type:'PATCH',
       url:"userprofilebackend.php",
-      type:'POST',
       data: {
           firstname: firstname,
           lastname: lastname,
@@ -300,34 +295,30 @@ $(document).ready(function () {
           securityqst: securityqst,
           securityans: securityans,
           password: password,
-
       },
+
       success:function(data, status){
-        readRecords();
-        alert(password);
         window.location.reload();
       },
-
     });
 
   }
 
 function readRecords(){
     
-    var readrecords = "readrecords";
+    var readrecords;
+    
     $.ajax({
+      type:"PATCH",
       url:"userprofilebackend.php",
-      type:"POST",
       data:{readrecords:readrecords},
       success:function(data,status){
-        $('#records_content').html(data);
+        $('#records_content').html(data);   
       },
     });
   }
 
 </script>
-
-
 
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
           </div></div>

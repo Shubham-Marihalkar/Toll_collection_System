@@ -15,8 +15,9 @@ if(isset($_POST['firstname'])&&isset($_POST['lastname'])&&isset($_POST['username
     $securityqst= $_POST['securityqst'];
     $securityans = $_POST['securityans'];
     $password = $_POST['password'];
-    $query = "UPDATE users SET firstname = '$firstname',lastname = '$lastname', username = '$username', phoneno = '$phoneno', securityqst = '$securityqst' ,securityans='$securityans',password = '$password' WHERE userid = $rowid";
+    $query = "UPDATE users SET firstname = '$firstname',lastname = '$lastname',  phoneno = '$phoneno', securityqst = '$securityqst' ,securityans='$securityans',password = '$password' WHERE username = '$username'";
     if (!$result = mysqli_query($link,$query)) {
+        header("location: dashboarduser.php");
         exit(mysqli_error());
     }
     else
