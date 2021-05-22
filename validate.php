@@ -8,9 +8,26 @@
       $username = $_POST['username'];
       $password = $_POST['password'];
       $type=$_POST['type']; 
-     
-      if ($type=='user') {
-         $sql = "SELECT userid FROM users WHERE username = '$username' and password = '$password'";
+      if($type=='admin') {
+         $sql = "SELECT adminid FROM admins WHERE username = '$username' and password = '$password'";
+         $result = mysqli_query($link,$sql);
+         $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+      
+         $count = mysqli_num_rows($result);
+      
+      // If result matched $myusername and $mypassword, table row must be 1 row
+      
+         if($count == 1) {
+         //session_register("username");
+            $_SESSION['login_admin'] = $username;
+         
+            header("location: dashboard_admin.php");
+         }else {
+         echo '<script> alert("Your Login Name or Password is invalid.");location.href= "login.php";</script>';
+         }
+      }
+      else if ($type=='user') {
+          $sql = "SELECT userid FROM users WHERE username = '$username' and password = '$password'";
          $result = mysqli_query($link,$sql);
       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
    
@@ -28,23 +45,8 @@
         echo '<script> alert("Your Login Name or Password is invalid.");location.href= "login.php";</script>';
       }
    }
-       elseif($type=='admins') {
-         $sql = "SELECT adminid FROM admins WHERE username = '$username' and password = '$password'";
-         $result = mysqli_query($link,$sql);
-         $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-      
-         $count = mysqli_num_rows($result);
-      
-      // If result matched $myusername and $mypassword, table row must be 1 row
-      
-         if($count == 1) {
-         //session_register("username");
-            $_SESSION['login_user'] = $username;
-         
-            header("location: dashboard_admin.php");
-         }else {
+      else{
          echo '<script> alert("Your Login Name or Password is invalid.");location.href= "login.php";</script>';
-         }
       }
    }
       

@@ -10,6 +10,7 @@
   	 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 	  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 	  <link href="css/sb-admin-3.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 	  <style>
 	  	body{
@@ -37,17 +38,16 @@
                   <form class="user" method="post" action="validate.php">
 
                       <div class="col-sm-6 mb-3 mb-sm-0">
-                         <input type="radio" name="type" id="user" value="user" checked> User
-                         <input type="radio" name="type" id="admin" value="admin"> Admin
+                         <input type="radio" name="type" id="user" value="user" checked/> User
+                         <input type="radio" name="type" id="admin" value="admin" /> Admin
                          <br>
                       </div>
                     <div class="form-group">
-                      <input type="text" name="username" id="username" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Username...">
+                      <input type="text" name="username" id="username" class="form-control form-control-user" aria-describedby="emailHelp" placeholder="Enter Username...">
                     </div>
                     <div class="form-group">
-                      <input type="password" name="password" id="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                      <input type="password" name="password" id="password" class="form-control form-control-user" placeholder="Password">
                     </div>
-                   
                     <button class="btn btn-primary btn-user btn-block">
                       Login
                     </button>
@@ -57,7 +57,7 @@
                     <a class="small" href="forgot-password.html">Forgot Password?</a>
                   </div>
                   <div class="text-center">
-                    <a class="small" href="register.html">Create an Account!</a>
+                    <a class="small" href="register.php">Create an Account!</a>
                   </div>
                 </div>
               </div>
