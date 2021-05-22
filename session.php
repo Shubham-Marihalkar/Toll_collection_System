@@ -21,13 +21,14 @@
    {
       $admin_check = $_SESSION['login_admin'];
       
-      $ses_sql = mysqli_query($link,"select username,adminid,tollboothid from admins where username = '$admin_check' ");
+      $ses_sql = mysqli_query($link,"select username,adminid,tollboothid,tollbooth from admins where username = '$admin_check' ");
       
       $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
       
       $login_session = $row['username'];
 
       $rowid = $row['adminid'];
+      $tollbooth=$row['tollbooth'];
       $tollboothid=$row['tollboothid'];
       //echo $login_session;
 

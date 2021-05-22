@@ -4,19 +4,18 @@
 	include('session.php');
 	extract($_POST);
 //payment entry
-if(isset($_POST['starting_point']) && isset($_POST['destination']) && isset($_POST['otp']) && isset($_POST['vname']) && isset($_POST['vtype']) && isset($_POST['vnumber'])) 
+if(isset($_POST['tollbooth'])  && isset($_POST['vname']) && isset($_POST['vtype']) && isset($_POST['vnumber'])) 
 {
 	$vname=$_POST['vname'];
 	$vtype=$_POST['vtype'];
 	$vnumber=$_POST['vnumber'];
-	$starting_point=$_POST['starting_point'];
-	$destination=$_POST['destination'];
-	$otp=$_POST['otp'];
+	$tollbooth=$_POST['tollbooth'];
+	$otp=isset($_POST['otp'])?$_POST['otp']:0;
 	$status="pending";
 	//compare otp logic here
-
-	$query = " INSERT INTO vehical_entry(userid, vname, vtype, vnumber,starting_point,destination,status) VALUES ( $rowid,  '$vname', '$vtype', '$vnumber','$starting_point','$destination','$status') ";
-	mysqli_query($link,$query);
+	$query = " INSERT INTO vehical_entry(userid, vname, vtype, vnumber,status,toll_booth) VALUES ( $rowid,  '$vname', '$vtype', '$vnumber','$status','$tollbooth') ";
+	$res=mysqli_query($link,$query);
+	echo mysqli_fetch_array($res,MYSQLI_ASSOC);
 }
 
 ?>

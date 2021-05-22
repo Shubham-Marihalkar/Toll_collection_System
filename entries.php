@@ -152,6 +152,7 @@
                   <thead>
                     <tr><p style="font-size:18px">Vehicle Entries</p></tr>
                     <tr>
+                      <th>Location</th>
                       <th>Vehicle Name</th>
                       <th>Vehicle Type</th>
                       <th>Vehicle Number</th>
@@ -163,7 +164,7 @@
                   </thead>
 
                   <?php
-                          $sql="SELECT * FROM vehical_entry WHERE $rowid=userid";
+                          $sql="SELECT * FROM vehical_entry WHERE $rowid=userid ORDER BY time DESC";
                           $result = mysqli_query($link,$sql);                
                         ?>
                   
@@ -171,6 +172,7 @@
                   <?php  while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){ ?>
                   <tr>
                   <?php $date=explode(" ",$row["time"])?>
+                    <td><?php echo $row["toll_booth"]; ?></td>
                     <td><?php echo $row["vname"]; ?></td>
                     <td><?php echo $row["vtype"]; ?></td>
                     <td><?php echo $row["vnumber"]; ?></td>

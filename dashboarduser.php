@@ -184,16 +184,17 @@
                   
                 <div class="card-body">
                  <?php
-                      $sql="SELECT starting_point,destination,time FROM vehical_entry WHERE $rowid=userid and time = (SELECT MAX(time) FROM vehical_entry WHERE userid=$rowid)
+                      $sql="SELECT toll_booth,time FROM vehical_entry WHERE $rowid=userid and time = (SELECT MAX(time) FROM vehical_entry WHERE userid=$rowid)
                           ORDER BY slno, time DESC;";
                       $result = mysqli_query($link,$sql);
-                      while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){                     
+                      while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){  
+                      $date=explode(" ",$row['time']);                   
                        echo "</br>";
-                       echo"From : ".($row['starting_point']);
+                       echo"Toll Booth : ".($row['toll_booth']);
                        echo "</br>";
-                       echo"Destination : ".($row['destination']);
+                       echo"Date : ".($date[0]);
                        echo "</br>";
-                       echo"Date and Time: ".($row['time']);
+                       echo"Time: ".($date[1]);
                      }
                 ?>
                 </div>
@@ -261,15 +262,13 @@
                echo "</select>";
                 ?>
             </div>
-
-
             <div class="form-group">
-              <label>Enter Starting_point</label>
+              <label>Toll Booth</label>
             
                  <?php
                 $sql = "SELECT * FROM tollbooths";
                 $result = mysqli_query($link,$sql);
-                echo "<select name='starting_point' id='starting_point' class='form-control'>";
+                echo "<select name='tollbooth' id='tollbooth' class='form-control'>";
                 echo "<option value=''>Select Starting_point</option>";
                 while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
                   echo "<option value='" . $row['location'] ."'>" . $row['location'] ."</option>";
@@ -277,21 +276,6 @@
                echo "</select>";
                 ?>
             </div>
-
-          <div class="form-group">
-            <label>Enter Destination</label>
-                <?php
-                $sql = "SELECT * FROM tollbooths";
-                $result = mysqli_query($link,$sql);
-                echo "<select  name='destination' id='destination' class='form-control'>";
-                echo "<option value=''>Select Destination</option>";
-                while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
-                  echo "<option value='" . $row['location'] ."'>" . $row['location'] ."</option>";
-                }
-               echo "</select>";
-                ?>
-
-          </div>
 
           <div class="form-group">
           <label> Enter OTP:</label>
@@ -332,17 +316,12 @@ function googleTranslateElementInit() {
 
 <script>
   
-$(document).ready(function () {
-    readRecords(); 
-  });
-
   function addRecord(){
 
     var vname =  $("#vname").val();
     var vtype =  $("#vtype").val();
     var vnumber =  $("#vnumber").val();
-    var starting_point =  $("#starting_point").val();
-    var destination =  $("#destination").val();
+    var tollbooth =  $("#tollbooth").val();
     var otp =  $("#otp").val();
 
     $.ajax({
@@ -353,32 +332,16 @@ $(document).ready(function () {
         vname:vname,
         vtype:vtype,
         vnumber:vnumber,
-        starting_point:starting_point,
-        destination:destination,
+        tollbooth:tollbooth,
         otp:otp,
       },
       success:function(data, status){
-        readRecords();
         window.location.reload();
       },
 
     });
 
   }
-
-function readRecords(){
-    
-    var readrecords = "readrecords";
-    $.ajax({
-      url:"payment.php",
-      type:"POST",
-      data:{readrecords:readrecords},
-      success:function(data,status){
-        $('#records_content').html(data);
-      },
-    });
-  }
-
 </script>
 
 

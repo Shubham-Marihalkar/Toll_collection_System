@@ -158,12 +158,18 @@
                 <input placeholder="<?php echo "Vehicle Number"?>"
            type="text" name="vnumber" id="vnumber" class="form-control">
           </div>
+
           <div class="form-group">
-              <label> Amount </label>
+              <label>Toll Booth</label>
+              <input value="<?php echo $tollbooth;?>"  placeholder="<?php echo $tollbooth;?>"
+           type="text" name="tollbooth" id="tollbooth" class="form-control">
+          </div>
+          <div class="form-group">
+              <label> Amount
                 <input placeholder="<?php echo "Amount"?>"
            type="text" name="amount" id="amount" class="form-control">
           </div>
-
+         
       </div>
       
       <div class="modal-footer">
@@ -194,7 +200,7 @@
                   </thead>
 
                   <?php
-                          $sql="SELECT * FROM vehical_entry WHERE $tollboothid=tollboothid";
+                          $sql="SELECT * FROM vehical_entry WHERE toll_booth='$tollbooth' ORDER BY time DESC";
                           $result = mysqli_query($link,$sql);                
                         ?>
                   
@@ -229,18 +235,12 @@ function googleTranslateElementInit() {
 
 <script>
   
-$(document).ready(function () {
-    readRecords(); 
-  });
-
   function addRecord(){
 
     var vname =  $("#vname").val();
     var vtype =  $("#vtype").val();
     var vnumber =  $("#vnumber").val();
-    var starting_point =  $("#starting_point").val();
-    var destination =  $("#destination").val();
-    var otp =  $("#otp").val();
+    var tollbooth =  $("#tollbooth").val();
 
     $.ajax({
 
@@ -250,32 +250,16 @@ $(document).ready(function () {
         vname:vname,
         vtype:vtype,
         vnumber:vnumber,
-        starting_point:starting_point,
-        destination:destination,
-        otp:otp,
+        tollbooth:tollbooth
       },
       success:function(data, status){
-        readRecords();
-        window.location.reload();
+        console.log(data);
+        // window.location.reload();
       },
 
     });
 
   }
-
-function readRecords(){
-    
-    var readrecords = "readrecords";
-    $.ajax({
-      url:"payment.php",
-      type:"POST",
-      data:{readrecords:readrecords},
-      success:function(data,status){
-        $('#records_content').html(data);
-      },
-    });
-  }
-
 </script>
 
 
