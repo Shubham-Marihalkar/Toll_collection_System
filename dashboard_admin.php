@@ -26,6 +26,13 @@
        location.reload();
    },5000);
 </script>
+<!-- <script type="text/javascript">
+   var autoLoad = setInterval(
+   function ()
+   {
+      $('#transaction').load('transaction.php').fadeIn("slow");
+   }, 10000); // refresh page every 10 seconds
+</script>  -->
   <div id="wrapper">
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard_admin.php">
@@ -128,46 +135,11 @@
             <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
           </div>
 
-          <div class="row">
-          <?php
-    //throgh realtime received values
-    include('database.php');
-    include("includes\dbconfig.php");
-    $reference = $database->getReference('/');
-        $vehical_numbers = $reference->getValue();
-        if(is_array($vehical_numbers)>0)
-        {
-            foreach($vehical_numbers as $key => $vnumber)
-            {
-                // echo $vnumber;
-                $sql = "SELECT * ,count(*) as count FROM vehical_registry where vnumber='$vnumber'";
-                $result = mysqli_query($link,$sql);
-                $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-                // print_r($vnumber);
-                // print_r($row);
-                if($row['count']==1)
-                {
-                    $rowid=$row['userid'];
-                    $vname=$row['vname'];
-                    $vtype=$row['vtype'];
-                    $vnumber=$row['vnumber'];
-                    $status="PENDING";
-                    $query = " INSERT INTO vehical_entry(userid, vname, vtype, vnumber,toll_booth,status) VALUES ( $rowid,  '$vname', '$vtype', '$vnumber','$tollbooth','$status') ";
-                    mysqli_query($link,$query);
-                }
-                else if($row['count']==0 && $key!=0)
-                {
-                    $res=$query1 = " INSERT INTO vehicle_fined(vnumber, toll_booth, fine_imposed,status) VALUES ( '$vnumber','$tollbooth', 1000, 'PENDING') ";
-                    mysqli_query($link,$query1);
-                }
-            }   
-            $reference->remove();
-        }
-?>
-
+          <div class="row"  style="float:right">
+            <div id="transaction"></div>
                 <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <button type="button" style="width:1000px" class="btn btn-primary text-white" data-toggle="modal" data-target="#myModal" >
+            <button type="button" style="width:200p" class="btn btn-primary text-white" data-toggle="modal" data-target="#myModal" >
             Make Payment
             </button>
           </div>
