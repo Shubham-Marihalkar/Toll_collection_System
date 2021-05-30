@@ -21,18 +21,11 @@
 </head>
 <body id="page-top">
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
    setTimeout(function(){
        location.reload();
    },5000);
-</script>
-<!-- <script type="text/javascript">
-   var autoLoad = setInterval(
-   function ()
-   {
-      $('#transaction').load('transaction.php').fadeIn("slow");
-   }, 10000); // refresh page every 10 seconds
-</script>  -->
+</script> -->
   <div id="wrapper">
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard_admin.php">
@@ -136,7 +129,8 @@
           </div>
 
           <div class="row"  style="float:right">
-            <div id="transaction"></div>
+            <div id="transaction"><?php include('transaction.php');
+                                        include('updateQueuedVehicle.php');?></div>
                 <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <button type="button" style="width:200p" class="btn btn-primary text-white" data-toggle="modal" data-target="#myModal" >
