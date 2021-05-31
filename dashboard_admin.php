@@ -39,6 +39,24 @@
           <span>Dashboard</span></a>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="queuedEntries.php" data-target="#collapseOrders" aria-expanded="true" aria-controls="collapseOrders">
+
+          <i><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+</svg></i>
+          <span>Queued Vehicle</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="finedEntries.php" data-target="#collapseOrders" aria-expanded="true" aria-controls="collapseOrders">
+          <i><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+</svg></i>
+          <span>Fined Vehicle</span>
+        </a>
+      </li>
+
       <hr class="sidebar-divider">
       <div class="sidebar-heading">
        
@@ -129,7 +147,7 @@
           </div>
 
           <div class="row"  style="float:right">
-            <div id="transaction"><?php include('transaction.php');
+            <div id="transaction" hide><?php include('transaction.php');
                                         include('updateQueuedVehicle.php');?></div>
                 <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">

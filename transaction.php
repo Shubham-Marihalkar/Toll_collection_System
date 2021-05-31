@@ -4,7 +4,10 @@
     include("includes\dbconfig.php");
     $reference = $database->getReference('/');
     $vehical_numbers = $reference->getValue();
-    $pending=array_diff($vehical_numbers['WiFiTx'],$vehical_numbers['LiFiTx']);
+   if(is_array($vehical_numbers['WiFiTx'])  && is_array($vehical_numbers['LiFiTx']))
+        $pending=array_diff($vehical_numbers['WiFiTx'],$vehical_numbers['LiFiTx']);
+    else
+        $pending=[];
     if(isset($_SESSION['tollbooth']))
         $tollbooth=$_SESSION['tollbooth'];
     else
