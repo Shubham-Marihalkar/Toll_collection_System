@@ -45,7 +45,8 @@
             {
                 $rowid=$row['userid'];
                 $vnumber=$row['vnumber'];
-                $query = " INSERT INTO pending_transactions(userid, vnumber, status,toll_booth) VALUES ( $rowid,  '$vnumber', 'in_queue','$tollbooth') ";
+                $amout=1000;
+                $query = " INSERT INTO pending_transactions(userid, vnumber, status,toll_booth,fine_imposed) VALUES ( $rowid,  '$vnumber', 'in_queue','$tollbooth',$amount) ";
                 mysqli_query($link,$query);
             }
             else if($row['count']==0)
