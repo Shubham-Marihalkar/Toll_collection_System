@@ -1,9 +1,16 @@
 <?php
-    //throgh realtime received values
     include('database.php');
     include("includes\dbconfig.php");
-    $reference = $database->getReference('/');
-    $vehical_numbers = $reference->getValue();
+    $referenceWifi = $database->getReference('/WiFiTx');
+    $numbers = $referenceWifi->getValue();
+    $vehical_numbers['WiFiTx']= $numbers;
+    $referenceLifi = $database->getReference('/LiFiTx');
+    $numbers = $referenceLifi->getValue();
+    $vehical_numbers['LiFiTx']= $numbers;
+    if(!(is_array($vehical_numbers['LiFiTx']) || is_array($vehical_numbers['WiFiTx']) ))
+        $database->getReference('/threshold')->set(1);
+    else
+        $database->getReference('/threshold')->set(0);
    if(is_array($vehical_numbers['WiFiTx'])  && is_array($vehical_numbers['LiFiTx']))
         $pending=array_diff($vehical_numbers['WiFiTx'],$vehical_numbers['LiFiTx']);
     else
@@ -12,7 +19,7 @@
         $tollbooth=$_SESSION['tollbooth'];
     else
         $tollbooth="ERROR";
-    if(is_array($vehical_numbers)>0)
+    if(is_array($vehical_numbers['LiFiTx']))
     {
         foreach($vehical_numbers['LiFiTx'] as $key => $vnumber)
         {
@@ -35,7 +42,9 @@
                 mysqli_query($link,$query1);
             }
         }   
-
+    }
+    if(is_array($vehical_numbers['WiFiTx']))
+    {
         foreach($pending as $key => $vnumber)
         {
             $sql = "SELECT * ,count(*) as count FROM vehical_registry where vnumber='$vnumber'";
@@ -45,7 +54,7 @@
             {
                 $rowid=$row['userid'];
                 $vnumber=$row['vnumber'];
-                $amout=1000;
+                $amount=1000;
                 $query = " INSERT INTO pending_transactions(userid, vnumber, status,toll_booth,fine_imposed) VALUES ( $rowid,  '$vnumber', 'in_queue','$tollbooth',$amount) ";
                 mysqli_query($link,$query);
             }
@@ -55,6 +64,7 @@
                 mysqli_query($link,$query1);
             }
         }   
-        $reference->remove();
+        $referenceLifi->remove();
+        $referenceWifi->remove();
     }
 ?>
