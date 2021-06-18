@@ -13,6 +13,8 @@
         $database->getReference('/threshold')->set(0);
    if(is_array($vehical_numbers['WiFiTx'])  && is_array($vehical_numbers['LiFiTx']))
         $pending=array_diff($vehical_numbers['WiFiTx'],$vehical_numbers['LiFiTx']);
+    else  if((!is_array($vehical_numbers['LiFiTx']))  &&  is_array($vehical_numbers['WiFiTx']))
+        $pending= $vehical_numbers['WiFiTx'];
     else
         $pending=[];
     if(isset($_SESSION['tollbooth']))
@@ -36,7 +38,7 @@
                 $query = " INSERT INTO vehical_entry(userid, vname, vtype, vnumber,toll_booth,status) VALUES ( $rowid,  '$vname', '$vtype', '$vnumber','$tollbooth','$status') ";
                 mysqli_query($link,$query);
             }
-            else if($row['count']==0)
+            else if(!$row['userid'])
             {
                 $query1 = " INSERT INTO vehicle_fined(vnumber, toll_booth, fine_imposed,status) VALUES ( '$vnumber','$tollbooth', 1000, 'PENDING') ";
                 mysqli_query($link,$query1);
@@ -58,7 +60,7 @@
                 $query = " INSERT INTO pending_transactions(userid, vnumber, status,toll_booth,fine_imposed) VALUES ( $rowid,  '$vnumber', 'in_queue','$tollbooth',$amount) ";
                 mysqli_query($link,$query);
             }
-            else if($row['count']==0)
+            else if(!$row['userid'])
             {
                 $query1 = " INSERT INTO vehicle_fined(vnumber, toll_booth, fine_imposed,status) VALUES ( '$vnumber','$tollbooth', 1000, 'PENDING') ";
                 mysqli_query($link,$query1);

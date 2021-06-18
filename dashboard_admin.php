@@ -147,7 +147,7 @@
           </div>
 
           <div class="row"  style="float:right">
-            <div id="transaction" hide><?php include('transaction.php');
+            <div id="transaction" ><?php include('transaction.php');
                                         include('updateQueuedVehicle.php');?></div>
                 <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
